@@ -1,2 +1,2 @@
 # flappygun
-flappy gun! let the gun fly!
+Flappy gun! Let the gun fly!
