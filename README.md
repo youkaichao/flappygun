@@ -1,2 +1,2 @@
-# gunman
-game named gunman
+# flappygun
+flappy gun! let the gun fly!
