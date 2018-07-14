@@ -1,29 +1,32 @@
 cc.Class({
-    extends: cc.Component,
-    properties: {
-      recoil: 0,  
-      rigidbody: {
-        default: null,
-        type: cc.RigidBody
-      }
+  extends: cc.Component,
+  properties: {
+    recoil: 0,
+    recoilPosX: 0,
+    recoilPosY: 0,
+    gravityAvailable: false,
+    rigidBody: {
+      default: null,
+      type: cc.RigidBody
     },
-    onLoad: function() {
-      this.rigidbody.awake = false
-      this.setupInputControl();
-      this.node.zIndex = 5;
-      console.log(this.recoil);
-      console.log(this.rigidbody);
+    polygonCollider: {
+      default: null,
+      type: cc.PhysicsPolygonCollider
     },
-    setupInputControl: function() {
-      var self = this;
-      cc.eventManager.addListener({
-        event: cc.EventListener.TOUCH_ONE_BY_ONE,
-        onTouchBegan: function(touch, event) {
-          self.rigidbody.applyLinearImpulse(new cc.Vec2(0,100), new cc.Vec2(0,0), true)
-        }
-      }, self.node)
-    },
-    update: function(dt) {
-
+    animation: {
+      default: null,
+      type: cc.Animation
     }
-});
+  },
+
+  onLoad: function () {
+    this.rigidBody.awake = false
+    this.node.zIndex = 5
+  },
+
+  onAnimationFinished: function(){
+    console.log("Finished!");
+  },
+
+  update: function (dt) {}
+})
