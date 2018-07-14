@@ -1,16 +1,9 @@
-let url = 'ws://localhost:8082'
-let ws = new WebSocket(url);
-let userName = null, code = null
-
-ws.onmessage = function (message)
-{
-    console.log(`接收数据: ${message.data}`)
-};
-
-ws.onclose = function()
-{
-    // 关闭 websocket
-    console.log(`连接已关闭...`)
+let url = 'http://localhost:12306';
+let user = {
+    userName:null,
+    code:null,
+    coins:null,
+    openID:null
 };
 
 function getUserName() {
@@ -45,12 +38,61 @@ function getCode() {
     })
 }
 
-async function login()
-{
-     [userName, code] =  await Promise.all([getUserName(), getCode()])
-    ws.send(JSON.stringify({
-        'type':'init',
-        'userName':userName,
-        'code':code
-    }))
+function getInitData(userName, code) {
+    return new Promise((resolve, reject) => {
+        wx.request({
+            "url":url + '/init',
+            "method":"POST",
+            "data":{
+                "userName":userName,
+                "code":code
+            },
+            "success":(data)=>{resolve(data)}
+        })
+    }).then((data)=>{
+        return data
+    })
 }
+
+// initialization
+(async function ()
+{
+    [userName, code] =  await Promise.all([getUserName(), getCode()]);
+    data = await getInitData(userName, code);
+    user.userName = userName;
+    user.code = code;
+    user.coins = data.coins;
+    user.openID = data.openID;
+})();
+
+function update() {
+    wx.request({
+        "url":url + '/update',
+        "method":"POST",
+        "data":{
+            "coins":user.coins,
+            "openID":user.openID
+        },
+    })
+}
+
+function getLeaderBoard(N) {
+    return new Promise((resolve, reject) => {
+        wx.request({
+            "url":url + '/getLeaderBoard',
+            "method":"POST",
+            "data":{
+                "number":number
+            },
+            "success":(data)=>{resolve(data)}
+        })
+    }).then((data)=>{
+        return data
+    })
+}
+
+module.exports = {
+    "user":user,
+    "update":update,
+    "getLeaderBoard":getLeaderBoard
+};

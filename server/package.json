@@ -9,11 +9,10 @@
   "author": "youkaichao",
   "license": "MIT",
   "dependencies": {
-    "nodejs-websocket": "^1.7.1",
+    "express": "^4.16.3",
+    "connect-multiparty": "^2.1.1",
     "sqlite-sync": "^0.3.8",
     "request": "^2.87.0"
   },
-  "devDependencies": {
-    "ws": "^5.2.2"
-  }
+  "devDependencies": {}
 }
