@@ -1,8 +1,6 @@
 // ===============3rd party package
 let express = require('express');
 let app = express();
-let multipart = require('connect-multiparty');
-let multipartMiddleware = multipart();
 let request = require('request');
 
 // ================local package
@@ -21,23 +19,35 @@ function convertCodeToOpenID(code) {
             }
         )
     }).then((data)=>{
-        return data.body.openid
-        // resolve(data.body.openid)
+        return JSON.parse(data.body).openid
     })
 }
 
-app.post('/init', multipartMiddleware, async function (req, res) {
-    let openID = null;
-    userName = req.param("userName");
-    code = req.param("code");
-    openID = await convertCodeToOpenID(code);
-    [exist, data] = await model.checkUser(openID);
+async function getPayload(req){
+    let str="";
+    return new Promise((resolve, reject) => {
+        req.on("data",function(dt){str+=dt;});
+        req.on("end", resolve);
+    }).then(()=>{
+        console.log(JSON.parse(str));
+        return JSON.parse(str);
+    })
+}
+
+app.post('/init', async function (req, res) {
+    let data = await getPayload(req);
+    let openId = null;
+    let userName = data['userName'];
+    let code = data["code"];
+    openId = await convertCodeToOpenID(code);
+    [exist, data] = await model.checkUser(openId);
+    console.log(data);
     if(!exist)
     {
-        await model.addNewUser(userName, openID);
+        await model.addNewUser(userName, openId);
         data = {
             'userName':userName,
-            'openID':openID,
+            'openId':openId,
             'coins':0
         }
     }
@@ -45,17 +55,19 @@ app.post('/init', multipartMiddleware, async function (req, res) {
     res.json(data)
 });
 
-app.post('/update', multipartMiddleware, async function (req, res) {
-    coins = req.param("coins");
-    openID = req.param("openID");
-    await model.updateCoin(coins, openID);
+app.post('/update', async function (req, res) {
+    let data = await getPayload(req);
+    let coins = data["coins"];
+    let openId = data["openId"];
+    await model.updateCoin(coins, openId);
     res.status(200)
 });
 
-app.post('/getLeaderBoard', multipartMiddleware, async function (req, res) {
-    number = req.param("number");
-    rows = await model.queryBoard(number);
-    res.set('content-type', 'application/json')
+app.post('/getLeaderBoard', async function (req, res) {
+    let data = await getPayload(req);
+    let number = data["number"];
+    let rows = await model.queryBoard(number);
+    res.set('content-type', 'application/json');
     res.json(rows)
 });
 

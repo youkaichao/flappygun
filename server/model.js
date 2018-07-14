@@ -3,8 +3,8 @@ let name = "data.db"
 sqlite.connect(name);
 
 // 检查一个用户是否在表中
-function checkUser(openID) {
-    let rows = sqlite.run("SELECT * FROM flappygun where  openID=?", [openID]);
+function checkUser(openId) {
+    let rows = sqlite.run("SELECT * FROM flappygun where  openId=?", [openId]);
     if(rows.length === 0){
         return [false, null]
     }else {
@@ -13,13 +13,13 @@ function checkUser(openID) {
 }
 
 //添加一个新用户,默认金币数为0
-function addNewUser(userName, openID) {
-    sqlite.run("insert into flappygun (coins, userName, openID) values (?, ?, ?)", [0, userName, openID])
+function addNewUser(userName, openId) {
+    sqlite.run("insert into flappygun (coins, userName, openId) values (?, ?, ?)", [0, userName, openId])
 }
 
 // 更新用户金币数
-function updateCoin(coins, openID) {
-    sqlite.run("update flappygun set coins=? where openID=?", [coins, openID])
+function updateCoin(coins, openId) {
+    sqlite.run("update flappygun set coins=? where openId=?", [coins, openId])
 }
 
 // 查询排行榜前N个

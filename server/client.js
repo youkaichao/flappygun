@@ -3,7 +3,7 @@ let user = {
     userName:null,
     code:null,
     coins:null,
-    openID:null
+    openId:null
 };
 
 function getUserName() {
@@ -47,10 +47,14 @@ function getInitData(userName, code) {
                 "userName":userName,
                 "code":code
             },
+            "header":{
+                "Content-Type":"form-data"
+            },
             "success":(data)=>{resolve(data)}
         })
     }).then((data)=>{
-        return data
+        console.log(data.data);
+        return data.data
     })
 }
 
@@ -62,18 +66,30 @@ function getInitData(userName, code) {
     user.userName = userName;
     user.code = code;
     user.coins = data.coins;
-    user.openID = data.openID;
+    user.openId = data.openId;
 })();
 
-function update() {
+function isReady() {
+    return !!user.openId;
+}
+
+function update(){
+    if(!isReady())
+    {
+        return false;
+    }
     wx.request({
         "url":url + '/update',
         "method":"POST",
+        "header":{
+            "Content-Type":"form-data"
+        },
         "data":{
             "coins":user.coins,
-            "openID":user.openID
+            "openId":user.openId
         },
-    })
+    });
+    return true;
 }
 
 function getLeaderBoard(N) {
@@ -81,18 +97,22 @@ function getLeaderBoard(N) {
         wx.request({
             "url":url + '/getLeaderBoard',
             "method":"POST",
+            "header":{
+                "Content-Type":"form-data"
+            },
             "data":{
-                "number":number
+                "number":N
             },
             "success":(data)=>{resolve(data)}
         })
     }).then((data)=>{
-        return data
+        return data.data;
     })
 }
 
 module.exports = {
     "user":user,
     "update":update,
-    "getLeaderBoard":getLeaderBoard
+    "getLeaderBoard":getLeaderBoard,
+    "isReady":isReady
 };
