@@ -10,9 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.3",
-    "connect-multiparty": "^2.1.1",
-    "sqlite-sync": "^0.3.8",
-    "request": "^2.87.0"
+    "request": "^2.87.0",
+    "better-sqlite3":"^4.1.4"
   },
   "devDependencies": {}
 }
