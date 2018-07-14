@@ -1,0 +1,70 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "pistol_fire",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.5,
+  "sample": 10,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "2620e7b5-99da-45af-b78d-f7c4a2dc0107"
+            }
+          },
+          {
+            "frame": 0.1,
+            "value": {
+              "__uuid__": "86a3ec0e-e5af-4cbe-b1f1-ca48d4b3fec9"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "86a3ec0e-e5af-4cbe-b1f1-ca48d4b3fec9"
+            }
+          },
+          {
+            "frame": 0.3,
+            "value": {
+              "__uuid__": "86a3ec0e-e5af-4cbe-b1f1-ca48d4b3fec9"
+            }
+          },
+          {
+            "frame": 0.4,
+            "value": {
+              "__uuid__": "2620e7b5-99da-45af-b78d-f7c4a2dc0107"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.4,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.5,
+      "func": "onAnimationFinished",
+      "params": []
+    }
+  ]
+}
