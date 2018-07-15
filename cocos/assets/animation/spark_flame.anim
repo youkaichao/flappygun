@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "spark_flame",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.3,
+  "sample": 20,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "64cf3e46-4bba-463c-8413-aa7490e5e24e"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "1bfe1b65-c42f-4fca-80ae-2ea5622880be"
+            }
+          },
+          {
+            "frame": 0.1,
+            "value": {
+              "__uuid__": "7ad3b0c2-474f-41f1-a42d-ae37058b5fd1"
+            }
+          },
+          {
+            "frame": 0.15,
+            "value": {
+              "__uuid__": "ca251763-0a40-484f-a399-fecbe281c655"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "3dc723a0-3adb-42ef-8dc5-08a28b8e58fe"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "64cf3e46-4bba-463c-8413-aa7490e5e24e"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

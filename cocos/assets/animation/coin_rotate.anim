@@ -1,0 +1,67 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "coin_rotate",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.8,
+  "sample": 10,
+  "speed": 1,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "615ec659-bf7e-4cdb-bee0-128e22c51b68"
+            }
+          },
+          {
+            "frame": 0.1,
+            "value": {
+              "__uuid__": "a5116bfe-5eeb-42f0-b036-bc07cc2689e5"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "72e74649-6764-4c5b-8ee8-117d6ea41f59"
+            }
+          },
+          {
+            "frame": 0.3,
+            "value": {
+              "__uuid__": "25b72399-90c6-4823-ab3d-cf3181eb1209"
+            }
+          },
+          {
+            "frame": 0.4,
+            "value": {
+              "__uuid__": "aefe03ef-2ca5-4fe1-80fb-cb86c655110e"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "f381ac1a-6c4a-4968-8f24-8ee260dcf206"
+            }
+          },
+          {
+            "frame": 0.6,
+            "value": {
+              "__uuid__": "8bed19b6-0651-422b-849f-dd17b487e655"
+            }
+          },
+          {
+            "frame": 0.7,
+            "value": {
+              "__uuid__": "4d58271c-18d4-4aff-9447-d857b4e7aa2f"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

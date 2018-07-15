@@ -13,20 +13,26 @@ cc.Class({
       default: null,
       type: cc.PhysicsPolygonCollider
     },
-    animation: {
+    fireAnimation: {
+      default: null,
+      type: cc.Animation
+    },
+    flameAnimation: {
       default: null,
       type: cc.Animation
     }
   },
 
   onLoad: function () {
-    this.rigidBody.awake = false
     this.node.zIndex = 5
   },
 
-  onAnimationFinished: function(){
-    console.log("Finished!");
+  onCollisionEnter: function (other, self) {
+    var dict = {
+      0: "coin",
+      1: "bullet"
+    };
+    this.node.emit("pick-" + dict[other.tag]);
   },
-
   update: function (dt) {}
 })
