@@ -443,7 +443,7 @@
     "_enabled": true,
     "recoil": 40000,
     "recoilPosX": 140,
-    "recoilPosY": 50,
+    "recoilPosY": 50.1,
     "gravityAvailable": false,
     "rigidBody": {
       "__id__": 10
