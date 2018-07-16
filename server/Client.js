@@ -61,6 +61,7 @@ function getInitData(userName, code) {
 // initialization
 (async function ()
 {
+    let userName = null, code = null, data = null;
     [userName, code] =  await Promise.all([getUserName(), getCode()]);
     data = await getInitData(userName, code);
     user.userName = userName;

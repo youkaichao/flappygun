@@ -1819,6 +1819,7 @@
     "gameStart": false,
     "maxHeight": 0,
     "score": 0,
+    "window": 0,
     "heightPerWindow": 10,
     "deadlineSpacing": 400
   }
