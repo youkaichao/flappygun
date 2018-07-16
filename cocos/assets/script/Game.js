@@ -196,18 +196,25 @@ cc.Class({
   },
   spawnNewObject: function() {
 //    var mode = Math.floor(4 * cc.random0To1());
-    var mode = 0;
+    var mode = 1;
     switch(mode) {
       case 0:
-        for(var i = 0; i < 5; i++){
+        for(var i = -2; i < 3; i++){
           for(var j = -1; j < 2; j++){
-            this.spawnCoin(this.background[0].x + j * cc.winSize.width / 4, (this.window + 1) * cc.winSize.height + (i - 2) * cc.winSize.height / 7);
-            this.spawnCoin(this.background[1].x + j * cc.winSize.width / 4, (this.window + 1) * cc.winSize.height + (i - 2) * cc.winSize.height / 7);
+            for(var k = -1; k < 2; j++){
+              this.spawnCoin(this.background[0].x + k * cc.winSize.width + j * cc.winSize.width / 4, (this.window + 1) * cc.winSize.height + i * cc.winSize.height / 7);
+            }
           }
         }
         break;
       case 1:
-        
+        for(var i = -2; i < 3; i++){
+          for(var j = -1; j < 2; j++){
+            for(var k = -1; k < 2; k++){
+              this.spawnCoin(this.background[0].x + k * cc.winSize.width + i * cc.winSize.width / 7, (this.window + 1) * cc.winSize.height + cc.winSize.height * j / 4);
+            }
+          }
+        }
         break;
       case 2: 
         break;

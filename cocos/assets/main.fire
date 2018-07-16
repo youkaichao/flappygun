@@ -270,8 +270,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 282,
-      "height": 146
+      "width": 140,
+      "height": 70
     },
     "_rotationX": 90,
     "_rotationY": 90,
@@ -298,7 +298,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 7
@@ -334,8 +334,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 140,
-      "y": 50
+      "x": 70,
+      "y": 25
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -396,7 +396,7 @@
       "__uuid__": "2620e7b5-99da-45af-b78d-f7c4a2dc0107"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -442,8 +442,8 @@
     },
     "_enabled": true,
     "recoil": 40000,
-    "recoilPosX": 140,
-    "recoilPosY": 50.1,
+    "recoilPosX": 70,
+    "recoilPosY": 40,
     "gravityAvailable": false,
     "rigidBody": {
       "__id__": 10
@@ -1819,6 +1819,7 @@
     "gameStart": false,
     "maxHeight": 0,
     "score": 0,
+    "window": 0,
     "heightPerWindow": 10,
     "deadlineSpacing": 400
   }

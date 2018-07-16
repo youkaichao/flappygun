@@ -58,16 +58,16 @@ function getInitData(userName, code) {
     })
 }
 
-// initialization
-(async function ()
-{
-    [userName, code] =  await Promise.all([getUserName(), getCode()]);
-    data = await getInitData(userName, code);
-    user.userName = userName;
-    user.code = code;
-    user.coins = data.coins;
-    user.openId = data.openId;
-})();
+// // initialization
+// (async function ()
+// {
+//     [userName, code] =  await Promise.all([getUserName(), getCode()]);
+//     data = await getInitData(userName, code);
+//     user.userName = userName;
+//     user.code = code;
+//     user.coins = data.coins;
+//     user.openId = data.openId;
+// })();
 
 function isReady() {
     return !!user.openId;
