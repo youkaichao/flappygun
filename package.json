@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "build": "babel ./server/Client.js -o ./cocos/assets/script/Client.js"
+    "build": "babel ./server/Client.js -o ./cocos/assets/script/Client.js --minified"
   },
   "repository": {
     "type": "git",
