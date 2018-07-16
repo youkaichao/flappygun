@@ -51,5 +51,21 @@
       }
     }
   },
-  "events": []
+  "events": [
+    {
+      "frame": 0.3,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.3,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 0.3,
+      "func": "",
+      "params": []
+    }
+  ]
 }

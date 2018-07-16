@@ -76,7 +76,6 @@ typings/
 *.pidb
 *.unityproj
 *.suo
-*.meta
 .DS_Store
 ehthumbs.db
 Thumbs.db
