@@ -6,7 +6,7 @@ cc.Class({
       serializable: false
     }
   },
-  onCollisionEnter: function (other, self) {
+  onCollisionEnter: function(other, self) {
     this.game.camera.removeTarget(this.node);
     this.game.despawnCoin(this.node);
   },

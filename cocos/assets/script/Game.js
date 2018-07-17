@@ -2,9 +2,12 @@ const Player = require('Player');
 const Coin = require('Coin');
 const Bullet = require('Bullet');
 const Client = require('Client');
+const Coinaction = require('Coinaction');
 cc.Class({
   extends: cc.Component,
   properties: {
+    width: 0,
+    height: 0,
     startButton: {
       default: null,
       type: cc.Node
@@ -17,6 +20,10 @@ cc.Class({
       default: null,
       type: cc.Node
     },
+    coinLabel: {
+      default: null,
+      type: cc.Label
+    },
     player: {
       default: null,
       type: Player
@@ -26,6 +33,10 @@ cc.Class({
       type: cc.Prefab
     },
     bulletPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
+    coinactionPrefab: {
       default: null,
       type: cc.Prefab
     },
@@ -78,6 +89,7 @@ cc.Class({
     deadlineSpacing: 400,
     clipSize: 20,
     currentClip: 0,
+    coinNumber: 0,
   },
   initPhysics: function() {
     var physicsManager = cc.director.getPhysicsManager();
@@ -91,18 +103,21 @@ cc.Class({
     collisionManager.enabled = true;
   },
   onLoad: function() {
-    cc.view.setResolutionPolicy(cc.ResolutionPolicy.NO_BORDER);
     var self = this;
     this.player.node.on("pick-coin", function(event){
-      console.log("pick-coin");
+      self.spawnCoinaction(event.target.x, event.target.y);
     });
     this.player.node.on("pick-bullet", function(event){
-      console.log("pick-bullet");
       self.currentClip = self.clipSize;
       self.clipUpdate();
     });
     this.coinPool = new cc.NodePool("Coin");
     this.bulletPool = new cc.NodePool("Bullet");
+    this.coinactionPool = new cc.NodePool("Coinaction");
+    this.coinNumber = 0;
+  },
+  coinNumberUpdate: function(){
+    this.coinLabel.string = this.coinNumber;
   },
   onStartGame: function() {
     this.initPhysics();
@@ -131,9 +146,9 @@ cc.Class({
     this.player.rigidBody.type = cc.RigidBodyType.Static;
     this.player.node.setPosition(0, 0);
     this.background[0].setPosition(0, 0);
-    this.background[1].setPosition(cc.winSize.width, 0);
-    this.background[2].setPosition(0, cc.winSize.height);
-    this.background[3].setPosition(cc.winSize.width, cc.winSize.height);
+    this.background[1].setPosition(this.width, 0);
+    this.background[2].setPosition(0, this.height);
+    this.background[3].setPosition(this.width, this.height);
     this.player.node.rotation = 90;
     this.player.gravityAvailable = false;
     this.player.rigidBody.linearVelocity = new cc.Vec2(0, 0);
@@ -181,7 +196,6 @@ cc.Class({
           self.player.gravityAvailable = true;    
           self.player.rigidBody.type = cc.RigidBodyType.Dynamic;
         }
-        console.log(self.currentClip);
         self.player.fireAnimation.play("pistol_fire");
         self.player.flameAnimation.play("spark_flame");
         self.player.rigidBody.applyLinearImpulse(self.player.rigidBody.getWorldVector(new cc.Vec2(-self.player.recoil, 0)), self.player.rigidBody.getWorldPoint(new cc.Vec2(self.player.recoilPosX, self.player.recoilPosY)), true);
@@ -189,7 +203,7 @@ cc.Class({
     }, self.node)
   },
   backgroundShift: function() {
-    let w = cc.winSize.width, h = cc.winSize.height;
+    let w = this.width, h = this.height;
     let LC = this.player.node.x - w/2, RC = this.player.node.x + w/2, DC = this.player.node.y - h/2, UC = this.player.node.y + h/2;
     let LB = this.background[0].x - w/2, DB = this.background[1].y - h/2, UB = this.background[2].y + h/2, RB = this.background[3].x + w/2;
     if(LC < LB){
@@ -210,7 +224,7 @@ cc.Class({
     }
   },
   textShift: function(){
-    let w = cc.winSize.width, h = cc.winSize.height;
+    let w = this.width, h = this.height;
     let pos0L = this.textLower[0].x, pos1L = this.textLower[1].x;
     if(pos1L <= 0){
       pos1L += w;
@@ -225,6 +239,16 @@ cc.Class({
     }
     this.textUpper[0].setPositionX(pos0U + 5);
     this.textUpper[1].setPositionX(pos1U + 5);
+  },
+  spawnCoinaction: function(posX, posY) {
+    var newCoinaction = null;
+    if(this.coinactionPool.size() > 0)
+      newCoinaction = this.coinactionPool.get(this);
+    else
+      newCoinaction = cc.instantiate(this.coinactionPrefab);
+    this.node.addChild(newCoinaction);
+    newCoinaction.getComponent("Coinaction").game = this;
+    newCoinaction.getComponent("Coinaction").move(posX, posY);
   },
   spawnCoin: function(posX, posY) {
     var newCoin = null;
@@ -255,8 +279,8 @@ cc.Class({
   heightUpdate: function() {
     this.maxHeight = Math.max(this.player.node.y, this.maxHeight);
     this.deadline.setPosition(this.player.node.x, this.maxHeight - this.deadlineSpacing);
-    if(Math.round(this.player.node.y * this.heightPerWindow / cc.winSize.height) > this.score){
-      this.score = Math.round(this.player.node.y * this.heightPerWindow / cc.winSize.height);
+    if(Math.round(this.player.node.y * this.heightPerWindow / this.height) > this.score){
+      this.score = Math.round(this.player.node.y * this.heightPerWindow / this.height);
       this.scoreLabel.string = "Current Score: " + this.score;
     }
   },
@@ -268,30 +292,30 @@ cc.Class({
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j++)
             for(var k = -1; k < 2; k++)
-              this.spawnCoin(this.background[0].x + k * cc.winSize.width + j * cc.winSize.width / 4, (this.window + 1) * cc.winSize.height + i * cc.winSize.height / 7);
+              this.spawnCoin(this.background[0].x + k * this.width + j * this.width / 4, (this.window + 1) * this.height + i * this.height / 7);
         break;
       case 1:
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j++)
             for(var k = -1; k < 2; k++)
-              this.spawnCoin(this.background[0].x + k * cc.winSize.width + i * cc.winSize.width / 7, (this.window + 1) * cc.winSize.height + cc.winSize.height * j / 4);
+              this.spawnCoin(this.background[0].x + k * this.width + i * this.width / 7, (this.window + 1) * this.height + this.height * j / 4);
         break;
       case 2: 
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j+=2)
             for(var k = -1; k < 2; k++)
-              this.spawnCoin(this.background[0].x + k * cc.winSize.width + j * cc.winSize.width / 4, (this.window + 1) * cc.winSize.height + i * cc.winSize.height / 7);
+              this.spawnCoin(this.background[0].x + k * this.width + j * this.width / 4, (this.window + 1) * this.height + i * this.height / 7);
         for(var i = -1; i < 2; i++)
           for(var k = -1; k < 2; k++)
-            this.spawnBullet(this.background[0].x + k * cc.winSize.width, (this.window + 1) * cc.winSize.height + i * cc.winSize.height / 7);
+            this.spawnBullet(this.background[0].x + k * this.width, (this.window + 1) * this.height + i * this.height / 7);
         break;
       case 3:
         break;
     }
   },
   objectUpdate: function() {
-    if(Math.round(this.player.node.y / cc.winSize.height) > this.window) {
-      this.window = Math.round(this.player.node.y / cc.winSize.height);
+    if(Math.round(this.player.node.y / this.height) > this.window) {
+      this.window = Math.round(this.player.node.y / this.height);
       this.spawnNewObject();   
     }
   },
@@ -316,6 +340,9 @@ cc.Class({
   despawnBullet: function(node) {
     this.camera.removeTarget(node);
     this.bulletPool.put(node);
+  },
+  despawnCoinaction: function(node) {
+    this.coinactionPool.put(node);
   },
   update: function(dt) {
     if(!this.gameStart)
