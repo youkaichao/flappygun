@@ -84,8 +84,9 @@ cc.Class({
     this.coinPool = new cc.NodePool("Coin");
     this.bulletPool = new cc.NodePool("Bullet");
     this.coinactionPool = new cc.NodePool("Coinaction");
-    this.coinNumber = 0;
+    this.coinNumber = Global.coinNumber;
     this.gameStart = true;
+    cc.game.addPersistRootNode(this.coinLabel.node);
     this.onStartGame();
   },
 
@@ -118,7 +119,7 @@ cc.Class({
     this.camera.enabled = true;
     this.currentClip = this.clipSize;
     this.clipUpdate();
-    this.scoreLabel.string = "Current Score: 0";
+    this.scoreLabel.string = "Current Height: 0";
     this.spawnCoin(0, this.player.node.height * 4);
   },
 
@@ -163,7 +164,7 @@ cc.Class({
     this.deadline.setPosition(this.player.node.x, this.maxHeight - this.deadlineSpacing);
     if(Math.round(this.player.node.y * this.heightPerWindow / this.height) > this.score){
       this.score = Math.round(this.player.node.y * this.heightPerWindow / this.height);
-      this.scoreLabel.string = "Current Score: " + this.score;
+      this.scoreLabel.string = "Current Height: " + this.score;
     }
   },
 
@@ -293,6 +294,8 @@ cc.Class({
     this.clipNode.active = false;
     this.gameStart = false;
     this.node.active = false;
+    Global.coinNumber = this.coinNumber;
+    Global.score = this.score;
     cc.director.loadScene("finish");
   },
   

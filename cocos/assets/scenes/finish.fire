@@ -117,7 +117,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "background_1",
+    "_name": "background",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -328,7 +328,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Label",
+    "_name": "label",
     "_objFlags": 0,
     "_parent": {
       "__id__": 7
@@ -682,6 +682,12 @@
     "node": {
       "__id__": 2
     },
-    "_enabled": true
+    "_enabled": true,
+    "scoreLabel": {
+      "__id__": 6
+    },
+    "coinLabel": {
+      "__id__": 15
+    }
   }
 ]
