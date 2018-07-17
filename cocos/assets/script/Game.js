@@ -1,10 +1,15 @@
 const Player = require('Player');
 const Coin = require('Coin');
 const Bullet = require('Bullet');
+const Client = require('Client');
 cc.Class({
   extends: cc.Component,
   properties: {
     startButton: {
+      default: null,
+      type: cc.Node
+    },
+    resetButton: {
       default: null,
       type: cc.Node
     },
@@ -20,7 +25,7 @@ cc.Class({
       default: null,
       type: cc.Prefab
     },
-    bulletPreflab: {
+    bulletPrefab: {
       default: null,
       type: cc.Prefab
     },
@@ -48,35 +53,53 @@ cc.Class({
       default: null,
       type: cc.Label
     },
+    clipNode: {
+      default: null,
+      type: cc.Node
+    },
+    clipGroup: {
+      default: [],
+      type: cc.Sprite
+    },
+    fullClip: {
+      default: null,
+      type: cc.Sprite
+    },
+    emptyClip: {
+      default: null,
+      type: cc.Sprite
+    },
     gravity: 0,
     gameStart: false,
     maxHeight: 0,
     score: 0,
     window: 0,
     heightPerWindow: 0,
-    deadlineSpacing: 400
+    deadlineSpacing: 400,
+    clipSize: 20,
+    currentClip: 0,
   },
   initPhysics: function() {
     var physicsManager = cc.director.getPhysicsManager();
     this.physicsManager = physicsManager;
     physicsManager.enabled = true;
-    physicsManager.debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |cc.PhysicsManager.DrawBits.e_pairBit |cc.PhysicsManager.DrawBits.e_centerOfMassBit |cc.PhysicsManager.DrawBits.e_jointBit |cc.PhysicsManager.DrawBits.e_shapeBit;
     physicsManager.gravity = cc.v2(0, -this.gravity);
   },
   initCollide: function() {
     var collisionManager = cc.director.getCollisionManager();
     this.collisionManager = collisionManager;
     collisionManager.enabled = true;
-    collisionManager.enabledDebugDraw = true;
-    collisionManager.enabledDrawBoundingBox = true;
   },
   onLoad: function() {
+    cc.view.setResolutionPolicy(cc.ResolutionPolicy.NO_BORDER);
     var self = this;
     this.player.node.on("pick-coin", function(event){
       console.log("pick-coin");
     });
     this.player.node.on("pick-bullet", function(event){
       console.log("pick-bullet");
+      self.currentClip = self.clipSize;
+      self.clipUpdate();
     });
     this.coinPool = new cc.NodePool("Coin");
     this.bulletPool = new cc.NodePool("Bullet");
@@ -87,6 +110,36 @@ cc.Class({
     this.setupInputControl();
     this.initCollide();
     this.spawnNewObject();
+  },
+  clipUpdate: function() {
+    var bulletNum = Math.ceil(this.currentClip / this.clipSize * 10);
+    for(var i = 0; i < bulletNum; i++)
+      this.clipGroup[i].spriteFrame = this.fullClip.spriteFrame.clone();
+    for(var i = bulletNum; i < 10; i++)
+      this.clipGroup[i].spriteFrame = this.emptyClip.spriteFrame.clone();
+  },
+  onResetGame: function() {
+    this.scoreLabel.node.active = false;
+    this.title.active = true;
+    this.textLower[0].active = true;
+    this.textLower[1].active = true;
+    this.textUpper[0].active = true;
+    this.textUpper[1].active = true;
+    this.startButton.active = true;
+    this.resetButton.active = false;
+    this.gameStart = false;
+    this.player.rigidBody.type = cc.RigidBodyType.Static;
+    this.player.node.setPosition(0, 0);
+    this.background[0].setPosition(0, 0);
+    this.background[1].setPosition(cc.winSize.width, 0);
+    this.background[2].setPosition(0, cc.winSize.height);
+    this.background[3].setPosition(cc.winSize.width, cc.winSize.height);
+    this.player.node.rotation = 90;
+    this.player.gravityAvailable = false;
+    this.player.rigidBody.linearVelocity = new cc.Vec2(0, 0);
+    this.player.rigidBody.angularVelocity = 0;
+    this.player.rigidBody.syncRotation();
+    this.player.rigidBody.syncPosition();
   },
   setupScene: function() {
     this.title.active = false;
@@ -105,17 +158,30 @@ cc.Class({
     this.score = 0;
     this.window = 0;
     this.camera.enabled = true;
-    this.spawnCoin(0, this.player.node.height * 2);
+    this.currentClip = this.clipSize;
+    this.clipNode.active = true;
+    this.clipUpdate();
+    this.scoreLabel.string = "Current Score: 0";
+    this.spawnCoin(0, this.player.node.height * 4);
   },
   setupInputControl: function() {
+    if(this.touchListener != undefined)
+      return;
     var self = this;
-    cc.eventManager.addListener({
+    this.touchListener = cc.eventManager.addListener({
       event: cc.EventListener.TOUCH_ONE_BY_ONE,
       onTouchBegan: function(touch, event) {
+        if(!self.gameStart)
+          return;
+        if(self.currentClip == 0)
+          return;
+        self.currentClip--;
+        self.clipUpdate();
         if(!self.player.gravityAvailable){
           self.player.gravityAvailable = true;    
           self.player.rigidBody.type = cc.RigidBodyType.Dynamic;
         }
+        console.log(self.currentClip);
         self.player.fireAnimation.play("pistol_fire");
         self.player.flameAnimation.play("spark_flame");
         self.player.rigidBody.applyLinearImpulse(self.player.rigidBody.getWorldVector(new cc.Vec2(-self.player.recoil, 0)), self.player.rigidBody.getWorldPoint(new cc.Vec2(self.player.recoilPosX, self.player.recoilPosY)), true);
@@ -176,13 +242,13 @@ cc.Class({
   spawnBullet: function(posX, posY) {
     var newBullet = null;
     if(this.bulletPool.size() > 0){
-      newBullet = this.BulletPool.get(this);
+      newBullet = this.bulletPool.get(this);
       newBullet.getComponent("Bullet").enabled = true;
     }
     else
       newBullet = cc.instantiate(this.bulletPrefab);
     this.node.addChild(newBullet);
-    this.node.setPosition(posX, posY);
+    newBullet.setPosition(posX, posY);
     newBullet.getComponent("Bullet").game = this;
     this.camera.addTarget(newBullet);
   },
@@ -196,27 +262,28 @@ cc.Class({
   },
   spawnNewObject: function() {
 //    var mode = Math.floor(4 * cc.random0To1());
-    var mode = 1;
+    var mode = 0;
     switch(mode) {
       case 0:
-        for(var i = -2; i < 3; i++){
-          for(var j = -1; j < 2; j++){
-            for(var k = -1; k < 2; j++){
+        for(var i = -2; i < 3; i++)
+          for(var j = -1; j < 2; j++)
+            for(var k = -1; k < 2; k++)
               this.spawnCoin(this.background[0].x + k * cc.winSize.width + j * cc.winSize.width / 4, (this.window + 1) * cc.winSize.height + i * cc.winSize.height / 7);
-            }
-          }
-        }
         break;
       case 1:
-        for(var i = -2; i < 3; i++){
-          for(var j = -1; j < 2; j++){
-            for(var k = -1; k < 2; k++){
+        for(var i = -2; i < 3; i++)
+          for(var j = -1; j < 2; j++)
+            for(var k = -1; k < 2; k++)
               this.spawnCoin(this.background[0].x + k * cc.winSize.width + i * cc.winSize.width / 7, (this.window + 1) * cc.winSize.height + cc.winSize.height * j / 4);
-            }
-          }
-        }
         break;
       case 2: 
+        for(var i = -2; i < 3; i++)
+          for(var j = -1; j < 2; j+=2)
+            for(var k = -1; k < 2; k++)
+              this.spawnCoin(this.background[0].x + k * cc.winSize.width + j * cc.winSize.width / 4, (this.window + 1) * cc.winSize.height + i * cc.winSize.height / 7);
+        for(var i = -1; i < 2; i++)
+          for(var k = -1; k < 2; k++)
+            this.spawnBullet(this.background[0].x + k * cc.winSize.width, (this.window + 1) * cc.winSize.height + i * cc.winSize.height / 7);
         break;
       case 3:
         break;
@@ -225,8 +292,7 @@ cc.Class({
   objectUpdate: function() {
     if(Math.round(this.player.node.y / cc.winSize.height) > this.window) {
       this.window = Math.round(this.player.node.y / cc.winSize.height);
-      if(this.window % 2 == 0)
-        this.spawnNewObject();   
+      this.spawnNewObject();   
     }
   },
   endGame: function() {
@@ -238,7 +304,10 @@ cc.Class({
     for(var i = 0; i < coinList.length; i++)
       this.despawnCoin(coinList[i].node);
     var bulletList = this.node.getComponentsInChildren("Bullet");
-//    for(var i = 0; i )
+    for(var i = 0; i < bulletList.length; i++)
+      this.despawnBullet(bulletList[i].node);
+    this.resetButton.active = true;
+    this.clipNode.active = false;
   },
   despawnCoin: function(node) {
     this.camera.removeTarget(node);
