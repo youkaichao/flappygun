@@ -15,7 +15,10 @@ cc.Class({
       this.scoreLabel.string = "Current Height: " + Client.user.score;
       this.coinLabel.string = Client.user.coins;
     },
-    changeScene(){
-        cc.director.loadScene("start");
+    replayGame(){
+      cc.director.loadScene("start");
+    },
+    displayRankList(){
+      cc.director.loadScene("rank");
     },
 });

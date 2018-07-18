@@ -68,6 +68,10 @@ typings/
 /cocos/temp/
 /cocos/local/
 /cocos/build/
+/rank/library/
+/rank/temp/
+/rank/local/
+/rank/build/
 *.log
 *.sql
 *.sqlite

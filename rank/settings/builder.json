@@ -19,23 +19,23 @@
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.cocos",
+  "packageName": "org.cocos2d.helloworld",
   "privateKey": "",
   "qqplay": {
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "renderMode": "0",
-  "startScene": "41a8f66f-1352-4ccb-802c-014a90f5aa2b",
-  "title": "cocos",
+  "renderMode": "1",
+  "startScene": "4310f31a-7e48-409a-999c-178cc5fca562",
+  "title": "rank",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "localhost",
-    "appid": "wxc1863062ee823b05",
-    "isSubdomain": false,
+    "REMOTE_SERVER_ROOT": "",
+    "appid": "",
+    "isSubdomain": true,
     "orientation": "portrait",
-    "subContext": "rank"
+    "subContext": ""
   },
-  "xxteaKey": "db0bad72-cbba-4c",
+  "xxteaKey": "abe6d1b8-33e8-4e",
   "zipCompressJs": true
 }
