@@ -20,7 +20,9 @@ cc.Class({
     flameAnimation: {
       default: null,
       type: cc.Animation
-    }
+    },
+    clipSize: 0,
+    currentClip: 0,
   },
 
   onLoad: function () {
@@ -34,5 +36,4 @@ cc.Class({
     };
     this.node.emit("pick-" + dict[other.tag]);
   },
-  update: function (dt) {}
 })

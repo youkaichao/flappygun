@@ -144,7 +144,6 @@ cc.Class({
   // called every frame, uncomment this function to activate update callback
   lateUpdate: function (dt) {
     let targetPos
-
     if (this.overview) {
       targetPos = this.target.parent.convertToWorldSpaceAR(this.getOverviewTargetsMidpoint())
     } else {

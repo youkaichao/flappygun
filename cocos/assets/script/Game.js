@@ -44,6 +44,10 @@ cc.Class({
       default: null,
       type: cc.Label
     },
+    clipLabel: {
+      default: null,
+      type: cc.Label
+    },
     clipNode: {
       default: null,
       type: cc.Node
@@ -67,8 +71,6 @@ cc.Class({
     window: 0,
     heightPerWindow: 0,
     deadlineSpacing: 400,
-    clipSize: 20,
-    currentClip: 0,
     coinNumber: 0,
   },
 
@@ -78,7 +80,7 @@ cc.Class({
       self.spawnCoinaction(event.target.x, event.target.y);
     });
     this.player.node.on("pick-bullet", function(event){
-      self.currentClip = self.clipSize;
+      self.player.currentClip = Math.min(self.player.clipSize, self.player.currentClip + 5);
       self.clipUpdate();
     });
     this.coinPool = new cc.NodePool("Coin");
@@ -118,7 +120,7 @@ cc.Class({
     this.score = 0;
     this.window = 0;
     this.camera.enabled = true;
-    this.currentClip = this.clipSize;
+    this.player.currentClip = this.player.clipSize;
     this.clipUpdate();
     this.scoreLabel.string = "Current Height: 0";
     this.spawnCoin(0, this.player.node.height * 4);
@@ -133,9 +135,9 @@ cc.Class({
       onTouchBegan: function(touch, event) {
         if(!self.gameStart)
           return;
-        if(self.currentClip == 0)
+        if(self.player.currentClip == 0)
           return;
-        self.currentClip--;
+        self.player.currentClip--;
         self.clipUpdate();
         if(!self.player.gravityAvailable){
           self.player.gravityAvailable = true;    
@@ -153,7 +155,8 @@ cc.Class({
   },
 
   clipUpdate: function() {
-    var bulletNum = Math.ceil(this.currentClip / this.clipSize * 10);
+    this.clipLabel.string = this.player.currentClip;
+    var bulletNum = Math.ceil(this.player.currentClip / this.player.clipSize * 10);
     for(var i = 0; i < bulletNum; i++)
       this.clipGroup[i].spriteFrame = this.fullClip.spriteFrame.clone();
     for(var i = bulletNum; i < 10; i++)
@@ -238,31 +241,37 @@ cc.Class({
   },
 
   spawnNewObject: function() {
-//    var mode = Math.floor(4 * cc.random0To1());
-    var mode = 0;
+    var mode = Math.floor(6 * cc.random0To1());
     switch(mode) {
       case 0:
+      case 1:
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j++)
             for(var k = -1; k < 2; k++)
               this.spawnCoin(this.background[0].x + k * this.width + j * this.width / 4, (this.window + 1) * this.height + i * this.height / 7);
         break;
-      case 1:
+      case 2:
+      case 3:
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j++)
             for(var k = -1; k < 2; k++)
               this.spawnCoin(this.background[0].x + k * this.width + i * this.width / 7, (this.window + 1) * this.height + this.height * j / 4);
         break;
-      case 2: 
+      case 4: 
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j+=2)
             for(var k = -1; k < 2; k++)
               this.spawnCoin(this.background[0].x + k * this.width + j * this.width / 4, (this.window + 1) * this.height + i * this.height / 7);
-        for(var i = -1; i < 2; i++)
-          for(var k = -1; k < 2; k++)
-            this.spawnBullet(this.background[0].x + k * this.width, (this.window + 1) * this.height + i * this.height / 7);
+        for(var k = -1; k < 2; k++)
+          this.spawnBullet(this.background[0].x + k * this.width, (this.window + 1) * this.height);
         break;
-      case 3:
+      case 5:
+        for(var i = -2; i < 3; i++)
+          for(var j = -1; j < 2; j+=2)
+            for(var k = -1; k < 2; k++)
+              this.spawnCoin(this.background[0].x + k * this.width + i * this.width / 7, (this.window + 1) * this.height + this.height * j / 4);
+        for(var k = -1; k < 2; k++)
+          this.spawnBullet(this.background[0].x + k * this.width, (this.window + 1) * this.height);
         break;
     }
   },

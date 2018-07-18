@@ -853,7 +853,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -120,
-      "y": 10
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -875,8 +875,10 @@
     "_fontSize": 60,
     "_lineHeight": 100,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "ee3b0e76-7167-4882-8040-6f55d5414810"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "0",
     "_N$horizontalAlign": 1,
