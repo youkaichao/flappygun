@@ -1,3 +1,4 @@
+let Client = require("./Client");
 cc.Class({
     extends: cc.Component,
     properties: {
@@ -11,8 +12,8 @@ cc.Class({
       },
     },
     onLoad: function(){
-      this.scoreLabel.string = "Current Height: " + Global.score;
-      this.coinLabel.string = Global.coinNumber;
+      this.scoreLabel.string = "Current Height: " + Client.user.score;
+      this.coinLabel.string = Client.user.coins;
     },
     changeScene(){
         cc.director.loadScene("start");

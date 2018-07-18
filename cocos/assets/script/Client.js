@@ -3,7 +3,8 @@ let user = {
     userName:null,
     code:null,
     coins:null,
-    openId:null
+    openId:null,
+    score:null
 };
 
 setTimeout(function () {
@@ -11,7 +12,8 @@ setTimeout(function () {
     user.code = "123";
     user.coins = 123;
     user.openId = "123";
-},3000);
+    user.score = 123;
+},1000);
 
 function update()
 {

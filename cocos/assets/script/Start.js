@@ -1,3 +1,4 @@
+let Client = require("./Client");
 cc.Class({
   extends: cc.Component,
   properties: {
@@ -15,12 +16,23 @@ cc.Class({
       default: null,
       type: cc.Label
     },
+    startButton: {
+      default: null,
+      type: cc.Button
+    },
     coinNumber: 0,
   },
   onLoad: function(){
-    //TO DO: initialize coin number
-    this.coinNumber = 0;
-    this.coinLabel.string = this.coinNumber;
+    this.timer = setInterval(()=>{
+      if(Client.isReady()){
+        clearInterval(this.timer);
+        this.coinNumber = Client.user.coins;
+        this.coinLabel.string = this.coinNumber;
+        this.startButton.interactable = true;
+      }else{
+        this.startButton.interactable = false;
+      }
+    }, 10);
   },
   textShift: function(){
     let w = this.width, h = this.height;
@@ -40,7 +52,6 @@ cc.Class({
     this.textUpper[1].setPositionX(pos1U + 5);
   },
   changeScene(){
-    Global.coinNumber = this.coinNumber;
     cc.director.loadScene("main");
   },
   update (dt) {

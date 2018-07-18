@@ -1,7 +1,7 @@
 const Player = require('Player');
 const Coin = require('Coin');
 const Bullet = require('Bullet');
-const Client = require('Client');
+let Client = require('./Client');
 const Coinaction = require('Coinaction');
 cc.Class({
   extends: cc.Component,
@@ -84,7 +84,8 @@ cc.Class({
     this.coinPool = new cc.NodePool("Coin");
     this.bulletPool = new cc.NodePool("Bullet");
     this.coinactionPool = new cc.NodePool("Coinaction");
-    this.coinNumber = Global.coinNumber;
+    this.coinNumber = Client.user.coins;
+    this.coinNumberUpdate();
     this.gameStart = true;
     cc.game.addPersistRootNode(this.coinLabel.node);
     this.onStartGame();
@@ -294,8 +295,9 @@ cc.Class({
     this.clipNode.active = false;
     this.gameStart = false;
     this.node.active = false;
-    Global.coinNumber = this.coinNumber;
-    Global.score = this.score;
+    Client.user.coins = this.coinNumber;
+    Client.user.score = this.score;
+    Client.update();
     cc.director.loadScene("finish");
   },
   
