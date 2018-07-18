@@ -22,12 +22,6 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     prefabRankItem : cc.Prefab = null;
 
-    @property(cc.Prefab)
-    prefabGameOverRank : cc.Prefab = null;
-
-    @property(cc.Node)
-    gameOverRankLayout : cc.Node = null;
-
     @property(cc.Node)
     loadingLabel : cc.Node = null;
 
@@ -51,8 +45,6 @@ export default class NewClass extends cc.Component {
         this.node.removeChildByTag(1000);
         this.rankingScrollView.node.active = false;
         this.scrollViewContent.removeAllChildren();
-        this.gameOverRankLayout.active = false;
-        this.gameOverRankLayout.removeAllChildren();
         this.loadingLabel.getComponent(cc.Label).string = "loading...";
         this.loadingLabel.active = true;
     };
@@ -167,7 +159,7 @@ export default class NewClass extends cc.Component {
                 if (data[i].avatarUrl === userData.avatarUrl) {
                     let userItem = cc.instantiate(this.prefabRankItem);
                     userItem.getComponent('RankItem').init(i, playerInfo);
-                    userItem.y = -354;
+                    userItem.y = -300;
                     this.node.addChild(userItem, 1, 1000);
                 }
             }
