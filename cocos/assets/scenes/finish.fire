@@ -232,7 +232,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 458,
+      "width": 457,
       "height": 100
     },
     "_rotationX": 0,
@@ -264,10 +264,8 @@
     "_fontSize": 60,
     "_lineHeight": 100,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "ee3b0e76-7167-4882-8040-6f55d5414810"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_N$string": "Current Height: 0",
     "_N$horizontalAlign": 1,
@@ -364,7 +362,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 32,
+      "width": 33,
       "height": 100
     },
     "_rotationX": 0,
@@ -396,10 +394,8 @@
     "_fontSize": 60,
     "_lineHeight": 100,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "ee3b0e76-7167-4882-8040-6f55d5414810"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_N$string": "0",
     "_N$horizontalAlign": 1,
@@ -635,10 +631,8 @@
     "_fontSize": 50,
     "_lineHeight": 40,
     "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "ee3b0e76-7167-4882-8040-6f55d5414810"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_N$string": "Play Again?",
     "_N$horizontalAlign": 1,
@@ -873,10 +867,8 @@
     "_fontSize": 50,
     "_lineHeight": 40,
     "_enableWrapText": false,
-    "_N$file": {
-      "__uuid__": "ee3b0e76-7167-4882-8040-6f55d5414810"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_N$string": "Rank List",
     "_N$horizontalAlign": 1,
