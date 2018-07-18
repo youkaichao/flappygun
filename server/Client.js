@@ -3,7 +3,8 @@ let user = {
     userName:null,
     code:null,
     coins:null,
-    openId:null
+    openId:null,
+    gun : null
 };
 
 function getUserName() {
@@ -68,6 +69,7 @@ function getInitData(userName, code) {
     user.code = code;
     user.coins = data.coins;
     user.openId = data.openId;
+    user.gun = data.gun;
 })();
 
 function isReady() {
@@ -87,33 +89,15 @@ function update(){
         },
         "data":{
             "coins":user.coins,
-            "openId":user.openId
+            "openId":user.openId,
+            "gun":user.gun,
         },
     });
     return true;
 }
 
-function getLeaderBoard(N) {
-    return new Promise((resolve, reject) => {
-        wx.request({
-            "url":url + '/getLeaderBoard',
-            "method":"POST",
-            "header":{
-                "Content-Type":"form-data"
-            },
-            "data":{
-                "number":N
-            },
-            "success":(data)=>{resolve(data)}
-        })
-    }).then((data)=>{
-        return data.data;
-    })
-}
-
 module.exports = {
     "user":user,
     "update":update,
-    "getLeaderBoard":getLeaderBoard,
     "isReady":isReady
 };

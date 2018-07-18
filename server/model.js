@@ -12,9 +12,9 @@ function checkUser(openId) {
     }
 }
 
-//添加一个新用户,默认金币数为0
+//添加一个新用户,默认金币数为0,枪支状态为1，表示有最低级的枪
 function addNewUser(userName, openId) {
-    db.prepare('insert into flappygun (coins, userName, openId) values (?, ?, ?)').run([0, userName, openId]);
+    db.prepare('insert into flappygun (coins, userName, openId, gun) values (?, ?, ?, ?)').run([0, userName, openId, 1]);
 }
 
 // 更新用户金币数
@@ -22,27 +22,22 @@ function updateCoin(coins, openId) {
     db.prepare('update flappygun set coins=? where openId=?').run([coins, openId]);
 }
 
-// 查询排行榜前N个
-function queryBoard(N) {
-    let rows = db.prepare('SELECT * FROM flappygun order by coins desc').all();
-    if(rows.length > N)
-    {
-        return rows.slice(0, N)
-    }else {
-        return rows
-    }
+// 更新用户金币数
+function updateGun(gun, openId) {
+    db.prepare('update flappygun set gun=? where openId=?').run([gun, openId]);
 }
+
 
 module.exports = {
     "checkUser":checkUser,
     "addNewUser":addNewUser,
     "updateCoin":updateCoin,
-    "queryBoard":queryBoard
+    "updateGun":updateGun
 };
 
 // console.log(checkUser("123"));
 // console.log(checkUser("456"));
-// addNewUser("you", "id2");
-// updateCoin(10, "id2");
-// console.log(queryBoard(4));
-// // ans = addNewUser("you", "id");
+// console.log(addNewUser("you", "id2"));
+// console.log(updateCoin(10, "id2"));
+// console.log(updateGun(10, "id2"));
+// console.log(checkUser("id2"));

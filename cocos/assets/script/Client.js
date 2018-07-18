@@ -4,7 +4,8 @@ let user = {
     code:null,
     coins:null,
     openId:null,
-    score:null
+    score:null,
+    gun:null
 };
 
 setTimeout(function () {
@@ -13,20 +14,12 @@ setTimeout(function () {
     user.coins = 123;
     user.openId = "123";
     user.score = 123;
+    user.gun = 1;
 },1000);
 
 function update()
 {
 
-}
-
-function getLeaderBoard(N)
-{
-    let ans = [];
-    for (let i = 0; i < N; i++) {
-        ans.push(user);
-    }
-    return ans;
 }
 
 function isReady()
@@ -37,6 +30,5 @@ function isReady()
 module.exports = {
     "user":user,
     "update":update,
-    "getLeaderBoard":getLeaderBoard,
     "isReady":isReady
 };

@@ -1,0 +1,19 @@
+CREATE TABLE flappygun
+(
+coins int,
+userName varchar(255),
+openId varchar(255),
+gun int
+);
+
+drop table  flappygun;
+
+insert into flappygun (coins, "userName", "openId", gun) values (0, "1", "2", 0);
+
+insert into flappygun (coins, "userName", "openId", gun) values (0, "6", "5", 0);
+
+select * from flappygun ;
+
+select * from flappygun where "openId"="2";
+
+delete  from  flappygun ;

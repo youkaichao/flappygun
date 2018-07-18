@@ -48,7 +48,8 @@ app.post('/init', async function (req, res) {
         data = {
             'userName':userName,
             'openId':openId,
-            'coins':0
+            'coins':0,
+            'gun' : 1
         }
     }
     res.set('content-type', 'application/json')
@@ -59,16 +60,10 @@ app.post('/update', async function (req, res) {
     let data = await getPayload(req);
     let coins = data["coins"];
     let openId = data["openId"];
+    let gun = data["gun"];
     await model.updateCoin(coins, openId);
+    await model.updateGun(gun, openId);
     res.status(200)
-});
-
-app.post('/getLeaderBoard', async function (req, res) {
-    let data = await getPayload(req);
-    let number = data["number"];
-    let rows = await model.queryBoard(number);
-    res.set('content-type', 'application/json');
-    res.json(rows)
 });
 
 let server = app.listen(port);
