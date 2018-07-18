@@ -57,8 +57,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 450,
-      "height": 90
+      "width": 1100,
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -202,8 +202,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 17,
-      "height": 30
+      "width": 22,
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -211,7 +211,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -192,
+      "x": -323,
       "y": 0
     },
     "_skewX": 0,
@@ -230,9 +230,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
-    "_lineHeight": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
+    "_lineHeight": 200,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -240,7 +240,7 @@
     "_N$string": "1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "consolas",
     "_N$overflow": 0
   },
   {
@@ -289,8 +289,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 79,
-      "height": 75
+      "width": 200,
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -298,7 +298,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -124,
+      "x": -206,
       "y": 3
     },
     "_skewX": 0,
@@ -378,8 +378,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 140,
-      "height": 34
+      "width": 300,
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -387,8 +387,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -82,
-      "y": 2
+      "x": -119,
+      "y": 1
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -406,9 +406,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
-    "_lineHeight": 30,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
+    "_lineHeight": 200,
     "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -416,7 +416,7 @@
     "_N$string": "追风少年",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "SimHei",
     "_N$overflow": 1
   },
   {
@@ -465,8 +465,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 97,
-      "height": 35
+      "width": 110,
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -474,8 +474,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 175,
-      "y": 0
+      "x": 294,
+      "y": 3
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -493,9 +493,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 35,
-    "_fontSize": 35,
-    "_lineHeight": 35,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
+    "_lineHeight": 200,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -503,7 +503,7 @@
     "_N$string": "12300",
     "_N$horizontalAlign": 2,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "consolas",
     "_N$overflow": 0
   },
   {

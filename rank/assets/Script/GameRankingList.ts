@@ -159,7 +159,7 @@ export default class NewClass extends cc.Component {
                 if (data[i].avatarUrl === userData.avatarUrl) {
                     let userItem = cc.instantiate(this.prefabRankItem);
                     userItem.getComponent('RankItem').init(i, playerInfo);
-                    userItem.y = -300;
+                    userItem.y = -700;
                     this.node.addChild(userItem, 1, 1000);
                 }
             }

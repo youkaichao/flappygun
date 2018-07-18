@@ -84,8 +84,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 600,
-      "height": 900
+      "width": 1200,
+      "height": 1600
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -93,8 +93,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 300,
-      "y": 450
+      "x": 600,
+      "y": 800
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -143,8 +143,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 500,
-      "height": 800
+      "width": 1100,
+      "height": 1500
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -153,7 +153,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 43
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -202,8 +202,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 500,
-      "height": 800
+      "width": 1100,
+      "height": 1500
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -212,7 +212,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -12
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -265,7 +265,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 12,
-      "height": 800
+      "height": 1500
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -273,7 +273,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 262,
+      "x": 562,
       "y": 0
     },
     "_skewX": 0,
@@ -438,8 +438,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 500,
-      "height": 90
+      "width": 1100,
+      "height": 1400
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -448,7 +448,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -10,
-      "y": 402
+      "y": 800
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -494,8 +494,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 500,
-      "height": 800
+      "width": 1100,
+      "height": 1600
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -504,7 +504,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 9
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -537,8 +537,8 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 500,
-      "height": 90
+      "width": 1100,
+      "height": 1400
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -643,8 +643,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 350,
-      "height": 60
+      "width": 1000,
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -701,7 +701,6 @@
     "prefabRankItem": {
       "__uuid__": "bdcb5597-1ef1-47a0-9f8d-79db921001d6"
     },
-    "prefabGameOverRank": null,
     "loadingLabel": {
       "__id__": 16
     }
@@ -716,8 +715,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 600,
-      "height": 900
+      "width": 1200,
+      "height": 1600
     },
     "_fitWidth": false,
     "_fitHeight": true
