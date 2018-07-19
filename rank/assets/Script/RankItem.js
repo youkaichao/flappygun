@@ -28,7 +28,7 @@ cc.Class({
             this.rankLabel.node.color = new cc.Color(192, 192, 192, 255);
             this.rankLabel.node.setScale(1.6);
         } else if (rank == 2) {
-            this.rankLabel.node.color = new cc.Color(191, 173, 111, 255);
+            this.rankLabel.node.color = new cc.Color(255,215,0, 255);
             this.rankLabel.node.setScale(1.3);
         }else{
             this.rankLabel.node.color = new cc.Color(255, 255, 255, 255);
