@@ -1,0 +1,125 @@
+[
+  {
+    "__type__": "cc.Prefab",
+    "_name": "",
+    "_objFlags": 0,
+    "_rawFiles": null,
+    "data": {
+      "__id__": 1
+    }
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "camera",
+    "_objFlags": 0,
+    "_parent": null,
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 2
+      },
+      {
+        "__id__": 3
+      }
+    ],
+    "_prefab": {
+      "__id__": 4
+    },
+    "_id": "",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Camera",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_targets": [],
+    "zoomRatio": 1
+  },
+  {
+    "__type__": "111c3WSlWNFtL8SQcimjkRU",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "target": null,
+    "camera": {
+      "__id__": 2
+    },
+    "anim": null,
+    "jumpZoom": false,
+    "centerAtStart": false,
+    "smoothFollow": false,
+    "followX": 500,
+    "followY": 500,
+    "minFollowDist": 0,
+    "followRatio": 1,
+    "overview": false,
+    "overviewTargets": [],
+    "overviewMargin": 0,
+    "speedZoom": false,
+    "zoomInSpeed": 5,
+    "zoomOutSpeed": 5,
+    "canShake": false,
+    "shakeDuration": 1,
+    "pointerPan": false,
+    "pointerXMult": 5,
+    "pointerYMult": 5,
+    "useBoundaries": false,
+    "topBound": 0,
+    "bottomBound": 0,
+    "leftBound": 0,
+    "rightBound": 0
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__id__": 0
+    },
+    "fileId": "6ejJ8wPPJFQb4gsy32hvn6",
+    "sync": false
+  }
+]

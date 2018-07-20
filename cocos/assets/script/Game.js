@@ -12,10 +12,6 @@ cc.Class({
       default: null,
       type: cc.Label
     },
-    player: {
-      default: null,
-      type: Player
-    },
     coinPrefab: {
       default: null,
       type: cc.Prefab
@@ -28,14 +24,18 @@ cc.Class({
       default: null,
       type: cc.Prefab
     },
+    gunPrefab: {
+      default: [],
+      type: cc.Prefab
+    },
+    cameraPrefab: {
+      default: null,
+      type: cc.Prefab
+    },
     background: {
       default: [],
       type: cc.Node
     },
-    camera: {
-      default: null,
-      type: cc.Camera
-    }, 
     deadline: {
       default: null,
       type: cc.Node
@@ -74,7 +74,9 @@ cc.Class({
     coinNumber: 0,
   },
 
-  onLoad: function() { 
+  onLoad: function() {
+    this.initPhysics();
+    this.dynamicInit();
     var self = this;
     this.player.node.on("pick-coin", function(event){
       self.spawnCoinaction(event.target.x, event.target.y);
@@ -89,12 +91,10 @@ cc.Class({
     this.coinNumber = Client.user.coins;
     this.coinNumberUpdate();
     this.gameStart = true;
-    cc.game.addPersistRootNode(this.coinLabel.node);
     this.onStartGame();
   },
 
   onStartGame: function() {
-    this.initPhysics();
     this.setupScene();
     this.setupInputControl();
     this.initCollide();
@@ -125,7 +125,23 @@ cc.Class({
     this.scoreLabel.string = "Current Height: 0";
     this.spawnCoin(0, this.player.node.height * 4);
   },
-
+  dynamicInit: function() {
+    this.player = cc.instantiate(this.gunPrefab[Client.user.currentGun]).getComponent("Player");
+    this.node.addChild(this.player.node);
+    this.player.node.setPosition(0, 0);
+    var cameraNode = cc.instantiate(this.cameraPrefab);
+    this.node.addChild(cameraNode);
+    cameraNode.setPosition(0, 0);
+    var cameraObject = cameraNode.getComponent("Camera");
+    cameraObject.target = this.player.node;
+    this.camera = cameraObject.camera;
+    this.camera.addTarget(this.player.node);
+    for(var i = 0; i < 4; i++)
+      this.camera.addTarget(this.background[i]);
+    this.camera.addTarget(this.deadline);
+    this.player.rigidBody.active = true;
+    console.log(this.player.rigidBody.active);
+  },
   setupInputControl: function() {
     if(this.touchListener != undefined)
       return;
@@ -140,11 +156,11 @@ cc.Class({
         self.player.currentClip--;
         self.clipUpdate();
         if(!self.player.gravityAvailable){
-          self.player.gravityAvailable = true;    
+          self.player.gravityAvailable = true;
           self.player.rigidBody.type = cc.RigidBodyType.Dynamic;
         }
-        self.player.fireAnimation.play("pistol_fire");
-        self.player.flameAnimation.play("spark_flame");
+        self.player.fireAnimation.play();
+        self.player.flameAnimation.play();
         self.player.rigidBody.applyLinearImpulse(self.player.rigidBody.getWorldVector(new cc.Vec2(-self.player.recoil, 0)), self.player.rigidBody.getWorldPoint(new cc.Vec2(self.player.recoilPosX, self.player.recoilPosY)), true);
       }
     }, self.node)
@@ -248,20 +264,20 @@ cc.Class({
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j++)
             for(var k = -1; k < 2; k++)
-              this.spawnCoin(this.background[0].x + k * this.width + j * this.width / 4, (this.window + 1) * this.height + i * this.height / 7);
+              this.spawnCoin(this.background[0].x + k * this.width + j * this.width / 3, (this.window + 1) * this.height + i * this.height / 7);
         break;
       case 2:
       case 3:
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j++)
             for(var k = -1; k < 2; k++)
-              this.spawnCoin(this.background[0].x + k * this.width + i * this.width / 7, (this.window + 1) * this.height + this.height * j / 4);
+              this.spawnCoin(this.background[0].x + k * this.width + i * this.width / 7, (this.window + 1) * this.height + this.height * j / 3);
         break;
       case 4: 
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j+=2)
             for(var k = -1; k < 2; k++)
-              this.spawnCoin(this.background[0].x + k * this.width + j * this.width / 4, (this.window + 1) * this.height + i * this.height / 7);
+              this.spawnCoin(this.background[0].x + k * this.width + j * this.width / 3, (this.window + 1) * this.height + i * this.height / 7);
         for(var k = -1; k < 2; k++)
           this.spawnBullet(this.background[0].x + k * this.width, (this.window + 1) * this.height);
         break;
@@ -269,7 +285,7 @@ cc.Class({
         for(var i = -2; i < 3; i++)
           for(var j = -1; j < 2; j+=2)
             for(var k = -1; k < 2; k++)
-              this.spawnCoin(this.background[0].x + k * this.width + i * this.width / 7, (this.window + 1) * this.height + this.height * j / 4);
+              this.spawnCoin(this.background[0].x + k * this.width + i * this.width / 7, (this.window + 1) * this.height + this.height * j / 3);
         for(var k = -1; k < 2; k++)
           this.spawnBullet(this.background[0].x + k * this.width, (this.window + 1) * this.height);
         break;
