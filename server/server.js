@@ -6,6 +6,8 @@ let request = require('request');
 // ================local package
 let model = require("./model");
 
+app.use(express.static('public'));
+
 // =============some config
 let appid = 'wxc1863062ee823b05',secret = 'd325281df8db423352b40cd682207e11',port = 12306
 

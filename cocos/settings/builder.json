@@ -30,7 +30,7 @@
   "title": "cocos",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "localhost",
+    "REMOTE_SERVER_ROOT": "https://youkc16.iterator-traits.com/",
     "appid": "wxc1863062ee823b05",
     "isSubdomain": false,
     "orientation": "portrait",

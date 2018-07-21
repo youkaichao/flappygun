@@ -1,4 +1,4 @@
-let url = 'https://youkc16.iterator-traits.com:12306';
+let url = 'https://youkc16.iterator-traits.com';
 let user = {
     userName:null,
     code:null,
