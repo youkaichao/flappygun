@@ -29,6 +29,8 @@ cc.Class({
       duration: 0,
     },
     onLoad: function(){
+      if(Client.user.mute)
+        this.gameoverAudio.mute = true;
       this.gameoverAudio.play();
       this.scoreLabel.string = "Current Height: " + Client.user.score;
       this.coinLabel.string = Client.user.coins;

@@ -99,9 +99,18 @@ cc.Class({
     this.bulletPool = new cc.NodePool("Bullet");
     this.coinactionPool = new cc.NodePool("Coinaction");
     this.coinNumber = Client.user.coins;
+    this.audioInit();
     this.coinNumberUpdate();
     this.gameStart = true;
     this.onStartGame();
+  },
+
+  audioInit: function() {
+    if(!Client.user.mute)
+      return;
+    this.coinAudio.mute = true;
+    this.bulletAudio.mute = true;
+    this.player.fireAudio.mute = true;
   },
 
   onStartGame: function() {

@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "1868a7fc-f7b8-4141-bde6-f3d14d13d3e8",
+  "uuid": "4aa60baf-f300-4f41-849f-fcb6bf654cd4",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "bguipausa-sheet0": {
+    "bgaudio": {
       "ver": "1.0.3",
-      "uuid": "ea4aa428-817f-4b6d-a4ca-979ef9ff2337",
-      "rawTextureUuid": "1868a7fc-f7b8-4141-bde6-f3d14d13d3e8",
+      "uuid": "34eeeb7b-df99-4c89-9ed3-c6afa4144f1e",
+      "rawTextureUuid": "4aa60baf-f300-4f41-849f-fcb6bf654cd4",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

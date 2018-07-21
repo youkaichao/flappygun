@@ -36,6 +36,14 @@ cc.Class({
       default: null,
       type: cc.AudioSource
     },
+    audioEnable: {
+      default: null,
+      type: cc.Button
+    },
+    muteEnable: {
+      default: null,
+      type: cc.Button
+    },
     selectStatus: 0,
     duration: 1,
     currentGun: 0,
@@ -56,6 +64,10 @@ cc.Class({
           this.buttonGroup[i].interactable = false;
       }
     }, 10);
+    if(Client.user.mute) 
+      this.setMute();
+    else
+      this.setAudio();
   },
   textShift: function(){
     let w = this.width, h = this.height;
@@ -144,6 +156,20 @@ cc.Class({
     this.buttonGroup[0].node.runAction(cc.fadeIn(this.duration / 2));
     this.buttonGroup[0].node.zIndex = 3;
     Client.update();
+  },
+  setAudio: function() {
+    this.muteEnable.node.active = false;
+    this.audioEnable.node.active = true;
+    this.buttonAudio.mute = false;
+    this.purchaseAudio.mute = false;
+    Client.user.mute = false;
+  },
+  setMute: function() {
+    this.audioEnable.node.active = false;
+    this.muteEnable.node.active = true;
+    this.buttonAudio.mute = true;
+    this.purchaseAudio.mute = true;
+    Client.user.mute = true;
   },
   update: function(dt) {
     this.textShift();
