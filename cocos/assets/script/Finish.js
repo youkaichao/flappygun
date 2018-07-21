@@ -22,9 +22,14 @@ cc.Class({
         default: null,
         type: cc.Button
       },
+      gameoverAudio: {
+        default: null,
+        type: cc.AudioSource
+      },
       duration: 0,
     },
     onLoad: function(){
+      this.gameoverAudio.play();
       this.scoreLabel.string = "Current Height: " + Client.user.score;
       this.coinLabel.string = Client.user.coins;
       var callBack = cc.callFunc(this.showButton, this);

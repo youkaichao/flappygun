@@ -28,6 +28,14 @@ cc.Class({
       default: null,
       type: cc.Label
     },
+    buttonAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
+    purchaseAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
     selectStatus: 0,
     duration: 1,
     currentGun: 0,
@@ -73,6 +81,7 @@ cc.Class({
       this.gunNode[i].runAction(cc.moveBy(this.duration, -640, 0).easing(cc.easeCubicActionOut()));
     this.currentGun = (this.currentGun + 1) % this.gunNumber;
     this.buttonUpdate();
+    this.buttonAudio.play();
   },
   gunShiftRight: function() {
     var rightGun = this.gunNode[(this.currentGun+Math.floor((this.gunNumber-1)/2))%this.gunNumber];
@@ -81,8 +90,10 @@ cc.Class({
       this.gunNode[i].runAction(cc.moveBy(this.duration, 640, 0).easing(cc.easeCubicActionOut()));
     this.currentGun = (this.currentGun + this.gunNumber - 1) % this.gunNumber;
     this.buttonUpdate();
+    this.buttonAudio.play();
   },
   changeScene: function() {
+    this.buttonAudio.play();
     Client.user.currentGun = this.currentGun;
     cc.director.loadScene("main");
   },
@@ -124,13 +135,12 @@ cc.Class({
     this.buttonGroup[this.selectStatus].node.zIndex = 3;
   },
   purchaseGun: function() {
-    console.log("purchase");
+    this.purchaseAudio.play();
     Client.user.coins -= this.gunValue[this.currentGun];
     Client.user.gun |= (1 << this.currentGun);
     this.coinLabel.string = Client.user.coins;
     this.buttonGroup[1].node.runAction(cc.fadeOut(this.duration / 2));
     this.buttonGroup[1].node.zIndex = 1;
-    console.log(this.buttonGroup, this.buttonGroup[0]);
     this.buttonGroup[0].node.runAction(cc.fadeIn(this.duration / 2));
     this.buttonGroup[0].node.zIndex = 3;
     Client.update();

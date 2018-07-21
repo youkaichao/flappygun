@@ -21,6 +21,10 @@ cc.Class({
       default: null,
       type: cc.Animation
     },
+    fireAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
     clipSize: 0,
     currentClip: 0,
   },

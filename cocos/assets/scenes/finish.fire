@@ -1050,6 +1050,9 @@
       "__id__": 25
     },
     "_enabled": true,
+    "_clip": {
+      "__uuid__": "27f0e1d0-9698-4565-b85c-25dbc2d23a4a"
+    },
     "_volume": 1,
     "_mute": false,
     "_loop": false,
@@ -1094,6 +1097,9 @@
     },
     "ranklistButton": {
       "__id__": 23
+    },
+    "gameoverAudio": {
+      "__id__": 26
     },
     "duration": 1
   }

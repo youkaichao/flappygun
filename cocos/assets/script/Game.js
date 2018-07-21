@@ -64,6 +64,14 @@ cc.Class({
       default: null,
       type: cc.Sprite
     },
+    coinAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
+    bulletAudio: {
+      default: null,
+      type: cc.AudioSource
+    },
     gravity: 0,
     gameStart: false,
     maxHeight: 0,
@@ -79,9 +87,11 @@ cc.Class({
     this.dynamicInit();
     var self = this;
     this.player.node.on("pick-coin", function(event){
+      self.coinAudio.play();
       self.spawnCoinaction(event.target.x, event.target.y);
     });
     this.player.node.on("pick-bullet", function(event){
+      self.bulletAudio.play();
       self.player.currentClip = Math.min(self.player.clipSize, self.player.currentClip + 5);
       self.clipUpdate();
     });
@@ -140,7 +150,6 @@ cc.Class({
       this.camera.addTarget(this.background[i]);
     this.camera.addTarget(this.deadline);
     this.player.rigidBody.active = true;
-    console.log(this.player.rigidBody.active);
   },
   setupInputControl: function() {
     if(this.touchListener != undefined)
@@ -161,6 +170,7 @@ cc.Class({
         }
         self.player.fireAnimation.play();
         self.player.flameAnimation.play();
+        self.player.fireAudio.play();
         self.player.rigidBody.applyLinearImpulse(self.player.rigidBody.getWorldVector(new cc.Vec2(-self.player.recoil, 0)), self.player.rigidBody.getWorldPoint(new cc.Vec2(self.player.recoilPosX, self.player.recoilPosY)), true);
       }
     }, self.node)
