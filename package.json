@@ -10,15 +10,12 @@
     "buildLocalClient": "babel ./server/localClient.js -o ./cocos/assets/script/Client.js --minified",
     "buildRemoteClient": "babel ./server/remoteClient.js -o ./cocos/assets/script/Client.js --minified",
     "checkoutClient": "git checkout cocos/assets/script/Client.js",
-
     "buildMainGame": "CocosCreator --path cocos --build",
     "buildMainGameWithLocalServer": "npm run buildLocalClient &&  npm run buildMainGame && npm run checkoutClient",
     "buildMainGameWithRemoteServer": "npm run buildRemoteClient &&  npm run buildMainGame && npm run checkoutClient",
     "buildSubGame": "CocosCreator --path rank --build",
-
     "disableURLCheck": "node disableCheck.js",
-
-    "buildWithoutServer" : "npm run buildMainGame && npm run buildSubGame && npm run disableURLCheck",
+    "buildWithoutServer": "npm run buildMainGame && npm run buildSubGame && npm run disableURLCheck",
     "buildWithLocalServer": "npm run buildMainGameWithLocalServer && npm run buildSubGame && npm run disableURLCheck",
     "buildWithRemoteServer": "npm run buildMainGameWithRemoteServer && npm run buildSubGame && npm run disableURLCheck",
     "launchWechat": "node launchWechat.js"
@@ -47,6 +44,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-runtime": "^6.26.0"
+    "babel-runtime": "^6.26.0",
+    "better-sqlite3": "^4.1.4"
   }
 }

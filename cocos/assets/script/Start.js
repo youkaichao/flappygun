@@ -94,6 +94,7 @@ cc.Class({
     this.currentGun = (this.currentGun + 1) % this.gunNumber;
     this.buttonUpdate();
     this.buttonAudio.play();
+    console.log(this.buttonAudio);
   },
   gunShiftRight: function() {
     var rightGun = this.gunNode[(this.currentGun+Math.floor((this.gunNumber-1)/2))%this.gunNumber];
@@ -103,6 +104,7 @@ cc.Class({
     this.currentGun = (this.currentGun + this.gunNumber - 1) % this.gunNumber;
     this.buttonUpdate();
     this.buttonAudio.play();
+    console.log(this.buttonAudio);
   },
   changeScene: function() {
     this.buttonAudio.play();

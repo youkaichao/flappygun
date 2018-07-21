@@ -14,7 +14,8 @@ cc.Class({
             window.sharedCanvas.width = this.width;
             window.sharedCanvas.height = this.height;
             window.wx.postMessage({
-                score: Client.user.score
+                score: Client.user.score,
+                show : true
             });
         }else {
             cc.log(`post message to update score and show rank list. score is ${Client.user.score}`);

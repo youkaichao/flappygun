@@ -25,7 +25,7 @@
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "renderMode": "0",
+  "renderMode": "2",
   "startScene": "41a8f66f-1352-4ccb-802c-014a90f5aa2b",
   "title": "cocos",
   "webOrientation": "auto",

@@ -34,16 +34,17 @@ export default class NewClass extends cc.Component {
             
             let self = this;
             
-            window.wx.onMessage(data => {
+            window.wx.onMessage(async (data) =>{
+              if(data.show)
+              {
                 self.showLoading();
-                self.updateScoreAndShowRank(data.score);
+                await self.updateScore(data.score);
+                await self.showRank(data.score);
+              }else{
+                await self.updateScore(data.score);
+              }
             });
-        }else{
-            let data = JSON.parse(`{"errMsg":"getFriendCloudStorage:ok","data":[{"openid":"orgkW0Z0DcQhdciPHU7GDOzSPSV8","nickname":"ycdfwzy","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eokHNcRJTzwJKlESf5EHaj4d0cLy1sJam3XjKNIt0xbrU3nyPNsoIjdMzAtaeKHPkpBFhGQEf2qoA/132","KVDataList":[]},{"openid":"orgkW0QUbFHMo4cHRv_ynFr_5x3g","nickname":"谭新宇","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/cZN9xAaxlYHhc6tzSqoibFj0B9VFxniaID0XFUkibqUfV0AAfYuBFib9NLvzj5fr519zfGqDTXEp6Uk1oNRtvpBJEg/132","KVDataList":[{"key":"score","value":"123"}]},{"openid":"orgkW0TXFlaRFeBEoRXhZVJcnHK4","nickname":"游凯超","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/JZK8jOLdDy9gMP4DVhoIwFUicQRl5sOMlp20tKeWmyT8src7wRZ5QosIejMkZejzGY6cyxT9kiaSHibJVPdWmsNbg/132","KVDataList":[{"key":"score","value":"123"}]}]}`);
-            data = data.data;
-            let userData = data[2];
-            this.processData(data, userData);
-        }
+        }else{}
     };
 
     showLoading () {
@@ -53,45 +54,43 @@ export default class NewClass extends cc.Component {
         this.loadingLabel.getComponent(cc.Label).string = "loading...";
         this.loadingLabel.active = true;
     };
-    
-    async updateScoreAndShowRank (score)
+
+    async updateScore(score){
+      let shouldUpdateScore = await new Promise((resolve, reject)=>{
+        window.wx.getUserCloudStorage({
+            keyList: ["score"],
+            success: function (getres) {
+                resolve(getres);
+            },
+            fail: function (res) {
+            }
+        });
+        }).then((getres)=>{
+            if (getres.KVDataList.length !== 0 && parseInt(getres.KVDataList[0].value) > score) {
+                return false;
+            }
+            return true;
+        });
+
+    if(shouldUpdateScore)
     {
-        let shouldUpdateScore = await new Promise((resolve, reject)=>{
-            window.wx.getUserCloudStorage({
-                keyList: ["score"],
-                success: function (getres) {
-                    console.log('getUserCloudStorage', 'success', getres);
-                    resolve(getres);
+        await new Promise((resolve, reject)=>{
+            window.wx.setUserCloudStorage({
+                KVDataList: [{key: "score", value: `${score}`}],
+                success: function (res) {
+                    resolve(res);
                 },
                 fail: function (res) {
-                    console.log('getUserCloudStorage', 'fail', getres);
                 }
             });
-            }).then((getres)=>{
-                if (getres.KVDataList.length !== 0 && parseInt(getres.KVDataList[0].value) > score) {
-                    return false;
-                }
-                return true;
-            });
+        }).then((data)=>{
 
-        if(shouldUpdateScore)
-        {
-            await new Promise((resolve, reject)=>{
-                window.wx.setUserCloudStorage({
-                    KVDataList: [{key: "score", value: `${score}`}],
-                    success: function (res) {
-                        console.log('setUserCloudStorage', 'success', res);
-                        resolve(res);
-                    },
-                    fail: function (res) {
-                        console.log('setUserCloudStorage', 'fail', res);
-                    }
-                });
-            }).then((data)=>{
-
-            });
-        }
-
+        });
+    }
+    };
+    
+    async showRank (score)
+    {
         this.rankingScrollView.node.active = true;
 
         let userData = await new Promise(resolve =>{
@@ -105,11 +104,9 @@ export default class NewClass extends cc.Component {
         }).then((userRes, noError)=>{
             if(noError)
             {
-                console.log('getUserInfo', 'success', userRes);
                 let userData = userRes.data[0];
                 return userData;
             }else{
-                console.log('getUserInfo', 'fail', userRes);
                 // this.loadingLabel.getComponent(cc.Label).string = "failed to load data.";
                 return userRes.data[0];
             }
@@ -126,17 +123,14 @@ export default class NewClass extends cc.Component {
         }).then((res, noError)=>{
             if(noError)
             {
-                console.log('getFriendCloudStorage', 'success', res);
                 let data = res.data;
                 return data;
             }else{
-                console.log('getFriendCloudStorage', 'fail', res);
                 // this.loadingLabel.getComponent(cc.Label).string = "failed to load data.";
                 return res.data;
             }
         });
         
-        console.log('after getFriendCloudStorage, data is ', data);
         this.processData(data, userData);
     };
     // update (dt) {}
@@ -148,7 +142,6 @@ export default class NewClass extends cc.Component {
             data = [];
             this.loadingLabel.getComponent(cc.Label).string = "failed to load data.";
         }else{
-            data = data.concat(data, data, data, data);
             this.loadingLabel.active = false;
             data.sort((a, b) => {
                 if (a.KVDataList.length === 0 && b.KVDataList.length === 0) {

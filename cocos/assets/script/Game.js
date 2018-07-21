@@ -343,6 +343,10 @@ cc.Class({
     Client.user.score = this.score;
     Client.update();
     cc.director.loadScene("finish");
+    window.wx.postMessage({
+      score: Client.user.score,
+      show : false
+  });
   },
   
   update: function(dt) {
