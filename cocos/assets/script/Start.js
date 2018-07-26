@@ -53,8 +53,10 @@ cc.Class({
     this.gunValue = [0, 1000, 2000, 3000, 5000];
     this.buttonGroup[0].node.zIndex = 3;
     this.timer = setInterval(()=>{
-      if(Client.isReady()){
+      Client.init()
+      if(Client.user.authorized){
         clearInterval(this.timer);
+        cc.game.resume();
         this.coinLabel.string = Client.user.coins;
         for(var i = 0; i < 3; i++)
           this.buttonGroup[i].interactable = true;
@@ -63,7 +65,7 @@ cc.Class({
         for(var i = 0; i < 3; i++)
           this.buttonGroup[i].interactable = false;
       }
-    }, 10);
+    }, 100);
     if(Client.user.mute) 
       this.setMute();
     else
@@ -94,7 +96,6 @@ cc.Class({
     this.currentGun = (this.currentGun + 1) % this.gunNumber;
     this.buttonUpdate();
     this.buttonAudio.play();
-    console.log(this.buttonAudio);
   },
   gunShiftRight: function() {
     var rightGun = this.gunNode[(this.currentGun+Math.floor((this.gunNumber-1)/2))%this.gunNumber];
@@ -104,7 +105,6 @@ cc.Class({
     this.currentGun = (this.currentGun + this.gunNumber - 1) % this.gunNumber;
     this.buttonUpdate();
     this.buttonAudio.play();
-    console.log(this.buttonAudio);
   },
   changeScene: function() {
     this.buttonAudio.play();
